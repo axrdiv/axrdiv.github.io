@@ -44,7 +44,7 @@
 <meta property="og:description" content="树的一些特性致使能够设计出一些比图高效的算法。本文主要内容：  树的基本概念和算法 树的直径   树上查询 树的遍历数组 &#x2F; DFS序 最近公共祖先   高级技术 重心剖分 树链剖分    1. 树的基本概念和算法树是一个连通的无环图，由 n        和节点和 n-1              条边构成。任意两点之间都有唯一的一条路径连接。只有一个邻接节点的节点被称为叶子节点。 树的遍历DF">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-25T15:03:34.000Z">
-<meta property="article:modified_time" content="2020-10-26T16:27:58.058Z">
+<meta property="article:modified_time" content="2020-10-26T16:34:19.472Z">
 <meta property="article:author" content="Axrdiv">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="树">
@@ -705,7 +705,7 @@ var _hmt = _hmt || [];
  <use xlink:href="#E1-MJMAIN-2E" x="14909" y="0"></use>
 </g>
 </svg></p>
-<h2 id="3-高级技术"><a href="#3-高级技术" class="headerlink" title="3. 高级技术"></a>3. 高级技术</h2><p>之后介绍两种树的高级处理技术。重心剖分（Centroid decomposition）能够将树拆分成小的树，并递归的处理它们；树链剖分（Heavy-light decomposition）将树表示为一组特定路径，进而可以高效地处理路径查询。</p>
+<h2 id="3-高级技术"><a href="#3-高级技术" class="headerlink" title="3. 高级技术"></a>3. 高级技术</h2><p>之后介绍两种树的高级处理技术。<strong>重心剖分</strong>（Centroid decomposition）能够将树拆分成小的树，并递归的处理它们；<strong>树链剖分</strong>（Heavy-light decomposition）将树表示为一组特定路径，进而可以高效地处理路径查询。</p>
 <h3 id="重心剖分"><a href="#重心剖分" class="headerlink" title="重心剖分"></a>重心剖分</h3><p>树的重心是树中的一个节点，去除该节点能够将树分成多个节点数不超过<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="5.784ex" height="2.843ex" style="vertical-align: -0.838ex;" viewBox="0 -863.1 2490.5 1223.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
 <title id="MathJax-SVG-1-Title">\lfloor n/2 \rfloor</title>
 <defs aria-hidden="true">
@@ -787,7 +787,7 @@ var _hmt = _hmt || [];
  <use xlink:href="#E1-MJMATHI-6E" x="3366" y="0"></use>
  <use xlink:href="#E1-MJMAIN-29" x="3966" y="0"></use>
 </g>
-</svg>，代码参见Codeforces<a href="#refer-anchor"><sup>2</sup></a>。</p>
+</svg>，代码参见Codeforces<a href="#refer-anchor"><sup>[2]</sup></a>。</p>
 <h3 id="树链剖分"><a href="#树链剖分" class="headerlink" title="树链剖分"></a>树链剖分</h3><p>TODO</p>
 <p>Mon Oct 26 11:48:55 AM EDT 2020</p>
 <div id='refer-anchor'></div>
