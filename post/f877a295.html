@@ -44,7 +44,7 @@
 <meta property="og:description" content="树的一些特性致使能够设计出一些比图高效的算法。本文主要内容：  树的基本概念和算法 树的直径   树上查询 树的遍历数组 &#x2F; DFS序 最近公共祖先   高级技术 重心剖分 树链剖分">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-25T15:03:34.000Z">
-<meta property="article:modified_time" content="2020-10-26T16:16:42.503Z">
+<meta property="article:modified_time" content="2020-10-26T16:17:47.075Z">
 <meta property="article:author" content="Axrdiv">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="树">
@@ -268,7 +268,8 @@ var _hmt = _hmt || [];
  <use xlink:href="#E1-MJMATHI-6E" x="1153" y="0"></use>
  <use xlink:href="#E1-MJMAIN-29" x="1753" y="0"></use>
 </g>
-</svg>复杂度内计算以上两种信息。<br>首先是<code>toLeaf(x)</code>，可以从<code>x</code>的子节点中选择一个最长的<code>toLeaf(c)</code>，之后加一。<br><code>maxLength(x)</code>则可以通过从子节点中选择最长的两个<code>toLeaf(a)</code>和<code>toLeaf(b)</code>计算得到。</p>
+</svg>复杂度内计算以上两种信息。<br>首先是<code>toLeaf(x)</code>，可以从<code>x</code>的子节点中选择一个最长的<code>toLeaf(c)</code>，之后加一。</p>
+<p><code>maxLength(x)</code>则可以通过从子节点中选择最长的两个<code>toLeaf(a)</code>和<code>toLeaf(b)</code>计算得到。</p>
 <h4 id="DFS方法"><a href="#DFS方法" class="headerlink" title="DFS方法"></a>DFS方法</h4><p>通过两次DFS搜索，可以得到树的直径。<br>首先随机选择一个节点<code>a</code>作为树根，找到距离最远的节点<code>b</code>。<br>之后将<code>b</code>作为树根，找到距离最远的节点<code>c</code>，则<code>bc</code>的距离为树的直径。</p>
 <h3 id="最长距离"><a href="#最长距离" class="headerlink" title="最长距离"></a>最长距离</h3><p>对于每个节点<code>x</code>计算以<code>x</code>为起点的最长距离<code>maxLength(x)</code>。这其中最长的<code>maxLength</code>就是树的直径，这个问题可以在<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="4.977ex" height="2.843ex" style="vertical-align: -0.838ex;" viewBox="0 -863.1 2143 1223.9" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title">
 <title id="MathJax-SVG-1-Title">O(n)</title>
