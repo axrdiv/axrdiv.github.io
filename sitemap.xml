@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://axrdiv.tech/post/6c246cfd.html</loc>
+    
+    <lastmod>2020-12-07</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://axrdiv.tech/post/17f94b5f.html</loc>
     
     <lastmod>2020-11-15</lastmod>
@@ -60,7 +67,7 @@
 
   <url>
     <loc>https://axrdiv.tech/</loc>
-    <lastmod>2020-11-15</lastmod>
+    <lastmod>2020-12-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -68,42 +75,49 @@
   
   <url>
     <loc>https://axrdiv.tech/tags/%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2020-11-15</lastmod>
+    <lastmod>2020-12-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://axrdiv.tech/tags/%E5%9B%BE/</loc>
-    <lastmod>2020-11-15</lastmod>
+    <lastmod>2020-12-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://axrdiv.tech/tags/%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2020-11-15</lastmod>
+    <lastmod>2020-12-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://axrdiv.tech/tags/%E5%8C%BA%E9%97%B4%E6%9F%A5%E8%AF%A2/</loc>
-    <lastmod>2020-11-15</lastmod>
+    <lastmod>2020-12-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://axrdiv.tech/tags/%E6%A0%91/</loc>
-    <lastmod>2020-11-15</lastmod>
+    <lastmod>2020-12-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://axrdiv.tech/tags/CSES/</loc>
-    <lastmod>2020-11-15</lastmod>
+    <lastmod>2020-12-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://axrdiv.tech/tags/%E5%87%A0%E4%BD%95/</loc>
+    <lastmod>2020-12-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
