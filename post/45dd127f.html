@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta name="google-site-verification" content="DwDg4EuywHWNZUkTC7sG0WGv_UQekM4uRtOoaGuDJHc" />
+<meta name="baidu-site-verification" content="hkLiBHH93D" />
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="在Manjaro上安装CUDNN"/>
+
+
+
+
+  <meta name="keywords" content="CUDNN,Manjaro," />
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Axrdiv's Blog" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.jpg?v=1.1" />
+
+
+
+<link rel="canonical" href="https://axrdiv.tech/post/45dd127f.html"/>
+
+
+<meta name="description" content="在Manjaro上安装CUDNN大概属于一项令人愉悦的过程。得益于自动化程序mhwd（Manjaro Hardware Detection）和pacman，整个安装过程十分流畅。 1. 准备工作这里假设Manjaro系统已经准备妥当，在PCI插槽上安装好GPU并保证供电充足。这时台式机的主板在检测到GPU后通常会屏蔽主板上的核显。如果想在神经网络训练中使用完整的GPU资源，那么就需要在BIOS重新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Manjaro上安装CUDNN">
+<meta property="og:url" content="https://axrdiv.tech/post/45dd127f.html">
+<meta property="og:site_name" content="Axrdiv&#39;s Blog">
+<meta property="og:description" content="在Manjaro上安装CUDNN大概属于一项令人愉悦的过程。得益于自动化程序mhwd（Manjaro Hardware Detection）和pacman，整个安装过程十分流畅。 1. 准备工作这里假设Manjaro系统已经准备妥当，在PCI插槽上安装好GPU并保证供电充足。这时台式机的主板在检测到GPU后通常会屏蔽主板上的核显。如果想在神经网络训练中使用完整的GPU资源，那么就需要在BIOS重新">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-16T15:40:24.000Z">
+<meta property="article:modified_time" content="2020-12-16T16:36:36.168Z">
+<meta property="article:author" content="Axrdiv">
+<meta property="article:tag" content="CUDNN">
+<meta property="article:tag" content="Manjaro">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: false
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+
+  <link href="/plugins/prettify/prettify.css" rel="stylesheet">
+
+
+<!--百度统计-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b733e1eaeacbf8f87d3be047f28c3973";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+    <title> 在Manjaro上安装CUDNN - Axrdiv's Blog </title>
+  <meta name="generator" content="Hexo 5.2.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">Axrdiv's Blog</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    
+                        <li class="menu-item">
+                    
+                        <a href="/archives">
+                            
+                            
+                                归档
+                            
+                        </a>
+                    </li>
+                
+                    
+                        <li class="menu-item">
+                    
+                        <a href="/about">
+                            
+                            
+                                关于
+                            
+                        </a>
+                    </li>
+                
+                    
+                        <li class="menu-item">
+                    
+                        <a href="/atom.xml">
+                            
+                            
+                                订阅
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          在Manjaro上安装CUDNN
+        
+      </h1>
+
+      <time class="post-time">
+          2020-12-16
+      </time>
+    </header>
+
+
+
+    
+            
+  <div class="toc-container">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">1. 准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A3%80%E6%B5%8B%E6%98%BE%E5%8D%A1"><span class="toc-text">2. 检测显卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85CUDNN"><span class="toc-text">3. 安装CUDNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%98%BE%E7%A4%BA%E6%92%95%E8%A3%82"><span class="toc-text">4. 显示撕裂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol>
+  </div> 
+
+
+            <div class="post-content">
+                <p>在Manjaro上安装CUDNN大概属于一项令人愉悦的过程。得益于自动化程序<code>mhwd</code>（Manjaro Hardware Detection）和<code>pacman</code>，整个安装过程十分流畅。</p>
+<h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><p>这里假设Manjaro系统已经准备妥当，在PCI插槽上安装好GPU并保证供电充足。这时台式机的主板在检测到GPU后通常会屏蔽主板上的核显。如果想在神经网络训练中使用完整的GPU资源，那么就需要在BIOS重新启用核显来运行X11。该过程因主板厂商而异，思路是在BIOS中强制开启核显并将核显作为首要信号输出。</p>
+<h2 id="2-检测显卡"><a href="#2-检测显卡" class="headerlink" title="2. 检测显卡"></a>2. 检测显卡</h2><p>搞定了BIOS后，启动系统运行如下命令查看图形硬件</p>
+<pre><code>lspci -k | grep -A 2 -i &#39;VGA&#39;</code></pre>
+<p>也可以使用<code>inxi</code></p>
+<pre><code>inxi -G</code></pre>
+<p>在确认GPU之后，便开始安装驱动。</p>
+<h2 id="3-安装CUDNN"><a href="#3-安装CUDNN" class="headerlink" title="3. 安装CUDNN"></a>3. 安装CUDNN</h2><p>这里需要知道的是，在Driver、CUDA、CUDNN这三者中，软件依赖的关系与排列顺序相同。因而需要先安装Driver。</p>
+<pre><code>sudo mhwd -a pci nonfree 0300</code></pre>
+<p>命令将根据硬件情况自动安装显卡的驱动，如果是<code>GeForce RTX 30 Series</code>需要455版本以上的驱动。</p>
+<p>之后运行如下命令安装CUDNN。</p>
+<pre><code>sudo pacman -S cuda cudnn</code></pre>
+<p>这样，CUDNN就安装完成了。</p>
+<p>建议在<code>pacman.conf</code>中忽略升级CUDNN保证稳定性。</p>
+<pre><code># /etc/pacman.conf
+IgnorePkg    = cuda cudnn</code></pre>
+<h2 id="4-显示撕裂"><a href="#4-显示撕裂" class="headerlink" title="4. 显示撕裂"></a>4. 显示撕裂</h2><p>在使用核显时如果出现显示撕裂的情况，就需要设置一下X11。</p>
+<pre><code># /etc/X11/xorg.conf.d/20-intel.conf
+Section &quot;Device&quot;
+  Identifier &quot;Intel Graphics&quot;
+  Driver &quot;intel&quot;
+
+  Option &quot;TearFree&quot; &quot;true&quot;
+EndSection</code></pre>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/intel_graphics#Tearing">Intel Graphics</a></li>
+</ol>
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+      <ul class="post-copyright">
+        <li class="post-copyright-license">
+          <span>版权： </span>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/CUDNN/">CUDNN</a>
+		  
+			<a href="/tags/Manjaro/">Manjaro</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/post/7cd6c48d.html">
+        <span class="next-text nav-default">String Algorithms</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+      
+        
+
+
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1.5.2/dist/gitalk.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+
+    <div id="gitalk-container"></div>
+
+    <script>
+        var gitalk = new Gitalk({
+            clientID: 'a978599fbc1e1dee454f',
+            clientSecret: '02089131cb38a21319422cedca3e1bf59824ca47',
+            repo: 'axrdiv.github.io',
+            owner: 'axrdiv',
+            admin: 'axrdiv',
+            id: location.pathname,      // Ensure uniqueness and length less than 50
+            distractionFreeMode: 'false'  // Facebook-like distraction free mode
+        })
+
+        gitalk.render('gitalk-container')
+    </script>
+
+
+      
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+    2020
+    <span class="footer-author">Axrdiv.</span>
+    <span class="power-by">
+        Powered by <a class="hexo-link" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> and <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a>
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+
+
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+<!--prettify代码高亮脚本引入-->
+
+    <script src="/plugins/prettify/prettify.js"></script>
+    <script type="text/javascript">
+    jQuery(function($){
+        $('pre').addClass('prettyprint');
+        prettyPrint();
+    });
+    </script>
+
+
+  </body>
+</html>
