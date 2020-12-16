@@ -6,7 +6,7 @@
   <link href="https://axrdiv.tech/atom.xml" rel="self"/>
   
   <link href="https://axrdiv.tech/"/>
-  <updated>2020-12-16T16:43:32.914Z</updated>
+  <updated>2020-12-16T16:53:27.132Z</updated>
   <id>https://axrdiv.tech/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://axrdiv.tech/post/45dd127f.html"/>
     <id>https://axrdiv.tech/post/45dd127f.html</id>
     <published>2020-12-16T15:40:24.000Z</published>
-    <updated>2020-12-16T16:43:32.914Z</updated>
+    <updated>2020-12-16T16:53:27.132Z</updated>
     
-    <content type="html"><![CDATA[<p>在Manjaro上安装CUDNN大概属于一项令人愉悦的过程。得益于自动化程序<code>mhwd</code>（Manjaro Hardware Detection）和<code>pacman</code>，整个安装过程十分流畅。</p><h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><p>这里假设Manjaro系统已经准备妥当，在PCI插槽上安装好GPU并保证供电充足。这时台式机的主板在检测到GPU后通常会屏蔽主板上的核显。如果想在神经网络训练中使用完整的GPU资源，那么就需要在BIOS重新启用核显来运行X11。该过程因主板厂商而异，思路是在BIOS中强制开启核显并将核显作为首要信号输出。</p><h2 id="2-检测显卡"><a href="#2-检测显卡" class="headerlink" title="2. 检测显卡"></a>2. 检测显卡</h2><p>搞定了BIOS后，启动系统运行如下命令查看图形硬件</p><pre><code>lspci -k | grep -A 2 -i &#39;VGA&#39;</code></pre><p>也可以使用<code>inxi</code></p><pre><code>inxi -G</code></pre><p>在确认GPU之后，便开始安装驱动。</p><h2 id="3-安装CUDNN"><a href="#3-安装CUDNN" class="headerlink" title="3. 安装CUDNN"></a>3. 安装CUDNN</h2><p>这里需要知道的是，在Driver、CUDA、CUDNN这三者中，软件的依赖关系与排列顺序相同。因而需要先安装Driver。</p><pre><code>sudo mhwd -a pci nonfree 0300</code></pre><p>命令将根据硬件情况自动安装显卡的驱动，如果是<code>GeForce RTX 30 Series</code>需要455版本以上的驱动。</p><p>之后运行如下命令安装CUDNN。</p><pre><code>sudo pacman -S cuda cudnn</code></pre><p>这样，CUDNN就安装完成了。</p><p>建议在<code>pacman.conf</code>中忽略升级CUDNN保证稳定性。</p><pre><code># /etc/pacman.confIgnorePkg    = cuda cudnn</code></pre><h2 id="4-显示撕裂"><a href="#4-显示撕裂" class="headerlink" title="4. 显示撕裂"></a>4. 显示撕裂</h2><p>在使用核显时如果出现显示撕裂的情况，就需要设置一下X11。</p><pre><code># /etc/X11/xorg.conf.d/20-intel.confSection &quot;Device&quot;  Identifier &quot;Intel Graphics&quot;  Driver &quot;intel&quot;  Option &quot;TearFree&quot; &quot;true&quot;EndSection</code></pre><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol><li><a href="https://wiki.archlinux.org/index.php/intel_graphics#Tearing">Intel Graphics</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>在Manjaro上安装CUDNN大概属于一项令人愉悦的过程。得益于自动化程序<code>mhwd</code>（Manjaro Hardware Detection）和<code>pacman</code>，整个安装过程十分流畅。</p><h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><p>这里假设Manjaro系统已经准备妥当，在PCI插槽上安装好GPU并保证供电充足。这时台式机的主板在检测到GPU后通常会屏蔽主板上的核显。如果想在神经网络训练中独占完整的GPU资源，那么就需要设置BIOS重新启用核显来运行X11。该过程因主板厂商而异，思路是在BIOS中强制开启核显并将核显作为首要信号输出。</p><h2 id="2-检测显卡"><a href="#2-检测显卡" class="headerlink" title="2. 检测显卡"></a>2. 检测显卡</h2><p>搞定了BIOS后，启动系统运行如下命令查看图形硬件</p><pre><code>lspci -k | grep -A 2 -i &#39;VGA&#39;</code></pre><p>也可以使用<code>inxi</code></p><pre><code>inxi -G</code></pre><p>在确认GPU之后，便开始安装驱动。</p><h2 id="3-安装CUDNN"><a href="#3-安装CUDNN" class="headerlink" title="3. 安装CUDNN"></a>3. 安装CUDNN</h2><p>这里需要知道的是，在Driver、CUDA、CUDNN这三者中，软件的依赖关系与排列顺序相同。因而需要先安装Driver。</p><pre><code>sudo mhwd -a pci nonfree 0300</code></pre><p>命令将根据硬件情况自动安装显卡的驱动，如果是<code>GeForce RTX 30 Series</code>需要455版本以上的驱动。</p><p>之后运行如下命令安装CUDNN。</p><pre><code>sudo pacman -S cuda cudnn</code></pre><p>这样，CUDNN就安装完成了。</p><p>建议在<code>pacman.conf</code>中忽略升级CUDNN保证稳定性。</p><pre><code># /etc/pacman.confIgnorePkg    = cuda cudnn</code></pre><h2 id="4-显示撕裂"><a href="#4-显示撕裂" class="headerlink" title="4. 显示撕裂"></a>4. 显示撕裂</h2><p>在使用核显时如果出现显示撕裂的情况，就需要设置一下X11。</p><pre><code># /etc/X11/xorg.conf.d/20-intel.confSection &quot;Device&quot;  Identifier &quot;Intel Graphics&quot;  Driver &quot;intel&quot;  Option &quot;TearFree&quot; &quot;true&quot;EndSection</code></pre><h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol><li><a href="https://wiki.archlinux.org/index.php/intel_graphics#Tearing">Intel Graphics</a></li></ol>]]></content>
     
     
       
